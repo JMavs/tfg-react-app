@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Mellittus",
+    "slug": "mellittus",
+    "icon": "./static/icon.png",
+    "sdkVersion": "27.0.0",
+    "splash": {
+      "backgroundColor": "#B6EAFF",
+      "resizeMode": "contain",
+      "image": "./static/loading-icon.png"
+    }
+  }
+}
