@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     },
     markWrap: {
         flex: 1,
-        paddingVertical: 30,
+        paddingVertical: 40,
     },
     mark: {
         width: null,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     button: {
-        backgroundColor: "#FF3366",
+        backgroundColor: "#3675B6",
         paddingVertical: 20,
         alignItems: "center",
         justifyContent: "center",

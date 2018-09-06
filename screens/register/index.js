@@ -333,7 +333,7 @@ let styles = StyleSheet.create({
         fontSize: 20,
     },
     signup: {
-        backgroundColor: '#FF3366',
+        backgroundColor: '#3675B6',
         paddingVertical: 25,
         alignItems: 'center',
         justifyContent: 'center',
