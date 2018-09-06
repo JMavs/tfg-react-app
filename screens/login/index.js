@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     AppRegistry,
+    AsyncStorage,
     StyleSheet,
     Text,
     View,
@@ -12,6 +13,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import { StackActions, NavigationActions } from 'react-navigation';
+import '../../globals';
 
 const { width, height } = Dimensions.get("window");
 
@@ -25,36 +28,64 @@ export default class LoginScreen extends Component {
         super(props);
         this.login = this.login.bind(this);
         this.state = {
-            user: null,
+            username: null,
             password: null,
             access_token: null,
         };
     }
 
+    async getAPItoken() {
+        try {
+            const value = await AsyncStorage.getItem('access_token');
+            if (value !== null) {
+                const resetAction = StackActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: 'Main', params: { api_token: value} })],
+                });
+                this.props.navigation.dispatch(resetAction);
+            }
+        } catch (error) {
+            console.log('Error!')
+        }
+    }
+
+    async saveAPItoken(value) {
+        try {
+            await AsyncStorage.setItem('access_token', value);
+        } catch (error) {
+            console.log("Error saving data" + error);
+        }
+    }
+
+    componentDidMount() {
+        this.setState({access_token: this.getAPItoken()});
+    }
+
     login() {
-        fetch('http://192.168.100.18:5000/login', {
+        const url = global.server_url + global.login_path;
+        const { username, password } = this.state;
+        fetch(url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: this.state.user,
-                password: this.state.password,
-            }),
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                const { access_token } = responseJson;
-                this.setState({ access_token });
-                return responseJson.access_token;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+            body: JSON.stringify({ username, password }),
+        }).then((response) => {
+            if (response.status === 200) {
+                response.json().then((responseJson) => {
+                    this.saveAPItoken(responseJson.access_token);
+                    const resetAction = StackActions.reset({
+                        index: 0,
+                        actions: [NavigationActions.navigate({ routeName: 'Main', params: { api_token: responseJson.access_token} })],
+                    });
+                    this.props.navigation.dispatch(resetAction);
+                })
+            }
+        });
     }
     render() {
         const {navigate} = this.props.navigation;
-        console.log(this.state);
         return (
             <View style={styles.container}>
                 <ImageBackground source={background} style={styles.background} resizeMode="cover">
@@ -71,7 +102,7 @@ export default class LoginScreen extends Component {
                                 placeholderTextColor="#FFF"
                                 style={styles.input}
                                 underlineColorAndroid='transparent'
-                                onChangeText={(user) => this.setState({user})}
+                                onChangeText={(username) => this.setState({username})}
                             />
                         </View>
                         <View style={styles.inputWrap}>

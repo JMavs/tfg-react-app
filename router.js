@@ -1,6 +1,9 @@
 import {createStackNavigator} from "react-navigation";
+
+// Initial screens
 import LoginScreen from "./screens/login";
 import RegisterScreen from "./screens/register";
+import MainScreen from "./screens/main";
 
 const Router = createStackNavigator({
     Login: {
@@ -15,6 +18,12 @@ const Router = createStackNavigator({
             header: null,
         },
     },
+    Main: {
+        screen: MainScreen,
+        navigationOptions: {
+            header: null,
+        }
+    }
 });
 
 export default Router;

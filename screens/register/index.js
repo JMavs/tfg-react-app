@@ -7,6 +7,7 @@ import {
     View,
     Image,
     ImageBackground,
+    ScrollView,
     TextInput,
     TouchableOpacity
 } from 'react-native'
@@ -18,24 +19,29 @@ const lockIcon = require("./signup_lock.png");
 const emailIcon = require("./signup_email.png");
 const birthdayIcon = require("./signup_birthday.png");
 
+import '../../globals';
+
 export default class RegisterScreen extends Component {
     constructor(props) {
         super(props);
         this.register = this.register.bind(this);
-        this.alerta = this.alerta.bind(this);
+        this.GDPRAlert = this.GDPRAlert.bind(this);
     }
 
     register() {
         const { navigate } = this.props.navigation;
-        fetch('http://192.168.100.18:5000/register', {
+        const url = global.server_url + global.register_path;
+        fetch(url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: this.state.user,
+                username: this.state.username,
                 password: this.state.password,
+                role: this.state.role,
+                glucose_unit: this.state.glucose_unit,
                 email: this.state.email,
                 first_name: this.state.first_name,
                 last_name: this.state.last_name
@@ -43,6 +49,7 @@ export default class RegisterScreen extends Component {
         }).then((response) => response.json())
             .then((responseJson) => {
                 const { access_token } = responseJson;
+                console.log(responseJson);
                 this.setState({ access_token });
                 navigate('Login');
                 return responseJson.access_token;
@@ -52,7 +59,7 @@ export default class RegisterScreen extends Component {
             });
     }
 
-    alerta() {
+    GDPRAlert() {
         Alert.alert(
             'Términos y condiciones',
             'Marcando Aceptar estás declarando que aceptas nuestros términos y condiciones además de estar de acuerdo con la GRPD.',
@@ -74,136 +81,179 @@ export default class RegisterScreen extends Component {
                     style={[styles.container, styles.bg]}
                     resizeMode="cover"
                 >
-                    <View style={styles.headerContainer}>
+                    <View
+                        maxHeight="60%"
+                    >
+                        <ScrollView>
+                            <View style={styles.headerContainer}>
 
-                        <View style={styles.headerIconView}>
-                            <TouchableOpacity style={styles.headerBackButtonView}>
-                                <Image
-                                    source={backIcon}
-                                    style={styles.backButtonIcon}
-                                    resizeMode="contain"
-                                />
-                            </TouchableOpacity>
-                        </View>
+                                <View style={styles.headerIconView}>
+                                    <TouchableOpacity style={styles.headerBackButtonView}>
+                                        <Image
+                                            source={backIcon}
+                                            style={styles.backButtonIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </TouchableOpacity>
+                                </View>
 
-                        <View style={styles.headerTitleView}>
-                            <Text style={styles.titleViewText}>Registrarse</Text>
-                        </View>
+                                <View style={styles.headerTitleView}>
+                                    <Text style={styles.titleViewText}>Registrarse</Text>
+                                </View>
 
-                    </View>
-
-                    <View style={styles.inputsContainer}>
-
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={personIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
                             </View>
-                            <TextInput
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Nombre"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(first_name) => this.setState({first_name})}
-                            />
-                        </View>
 
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={personIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
+                            <View style={styles.inputsContainer}>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={personIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Nombre"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(first_name) => this.setState({first_name})}
+                                    />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={personIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Apellidos"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(last_name) => this.setState({last_name})}
+                                    />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={personIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Usuario"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        autoCapitalize='none'
+                                        onChangeText={(username) => this.setState({username})}
+                                    />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={emailIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Email"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        autoCapitalize='none'
+                                        onChangeText={(email) => this.setState({email})}
+                                    />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={lockIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        secureTextEntry={true}
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Contraseña"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        autoCapitalize='none'
+                                        onChangeText={(password) => this.setState({password})}
+                                    />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={birthdayIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Rol (dm1/dm2/doctor/family)"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        autoCapitalize='none'
+                                        onChangeText={(role) => this.setState({role})}
+                                    />
+                                </View>
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={birthdayIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Unidades (mg/dl)"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        autoCapitalize='none'
+                                        onChangeText={(glucose_unit) => this.setState({glucose_unit})}
+                                    />
+                                </View>
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.iconContainer}>
+                                        <Image
+                                            source={birthdayIcon}
+                                            style={styles.inputIcon}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                    <TextInput
+                                        style={[styles.input, styles.whiteFont]}
+                                        placeholder="Cumpleaños"
+                                        placeholderTextColor="#FFF"
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(birthdate) => this.setState({birthdate})}
+                                    />
+                                </View>
+
                             </View>
-                            <TextInput
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Apellidos"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(last_name) => this.setState({last_name})}
-                            />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={personIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
-                            </View>
-                            <TextInput
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Usuario"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(username) => this.setState({username})}
-                            />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={emailIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
-                            </View>
-                            <TextInput
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Email"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(email) => this.setState({email})}
-                            />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={lockIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
-                            </View>
-                            <TextInput
-                                secureTextEntry={true}
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Contraseña"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(password) => this.setState({password})}
-                            />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <View style={styles.iconContainer}>
-                                <Image
-                                    source={birthdayIcon}
-                                    style={styles.inputIcon}
-                                    resizeMode="contain"
-                                />
-                            </View>
-                            <TextInput
-                                style={[styles.input, styles.whiteFont]}
-                                placeholder="Cumpleaños"
-                                placeholderTextColor="#FFF"
-                                underlineColorAndroid='transparent'
-                                onChangeText={(password) => this.setState({password})}
-                            />
-                        </View>
-
+                        </ScrollView>
                     </View>
 
                     <View style={styles.footerContainer}>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.GDPRAlert()}>
                             <View style={styles.signup}>
-                                <Text style={styles.whiteFont} onPress={() => this.alerta()}>Registrarme</Text>
+                                <Text style={styles.whiteFont} >Registrarme</Text>
                             </View>
                         </TouchableOpacity>
 
