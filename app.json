@@ -4,6 +4,7 @@
     "slug": "mellittus",
     "icon": "./static/icon.png",
     "sdkVersion": "27.0.0",
+    "orientation": "portrait",
     "splash": {
       "backgroundColor": "#B6EAFF",
       "resizeMode": "contain",
