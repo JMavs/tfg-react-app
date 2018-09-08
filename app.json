@@ -9,6 +9,12 @@
       "backgroundColor": "#B6EAFF",
       "resizeMode": "contain",
       "image": "./static/loading-icon.png"
+    },
+    "ios": {
+      "bundleIdentifier": "us.mellitt.mellittus"
+    },
+    "android": {
+      "package": "us.mellitt.mellittus"
     }
   }
 }
