@@ -88,7 +88,7 @@ export default class RegisterScreen extends Component {
                             <View style={styles.headerContainer}>
 
                                 <View style={styles.headerIconView}>
-                                    <TouchableOpacity style={styles.headerBackButtonView}>
+                                    <TouchableOpacity style={styles.headerBackButtonView} onPress={() => navigate('Login')}>
                                         <Image
                                             source={backIcon}
                                             style={styles.backButtonIcon}
@@ -253,7 +253,7 @@ export default class RegisterScreen extends Component {
 
                         <TouchableOpacity onPress={() => this.GDPRAlert()}>
                             <View style={styles.signup}>
-                                <Text style={styles.whiteFont} >Registrarme</Text>
+                                <Text style={styles.button} >Registrarme</Text>
                             </View>
                         </TouchableOpacity>
 
@@ -332,12 +332,21 @@ let styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
     },
+    button: {
+        color: '#FFF',
+        fontSize: 18,
+    },
     signup: {
         backgroundColor: '#3675B6',
-        paddingVertical: 25,
+        paddingVertical: 20,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 15,
+        marginTop: 30,
+        borderRadius: 60,
+        marginLeft: "25%",
+        marginRight: "25%",
+        width: "50%",
     },
     signin: {
         justifyContent: 'center',

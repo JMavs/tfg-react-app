@@ -28,9 +28,9 @@ export default class AboutScreen extends Component {
                 <Text>Sobre</Text>
                 <Button
                     onPress={() => this.logout(rootNavigation)}
-                    title="Salir"
+                    title="Cerrar sesión"
                 >
-                    Salir
+                    Cerrar sesión
                 </Button>
                 <Text>
                     Versión: {global.version}
