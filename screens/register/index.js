@@ -12,6 +12,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native'
+import Icon from "react-native-vector-icons/Ionicons";
 
 const background = require("./signup_bg.png");
 const backIcon = require("./back.png");
@@ -109,11 +110,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={personIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-body" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         style={[styles.input, styles.whiteFont]}
@@ -126,11 +123,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={personIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-body" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         style={[styles.input, styles.whiteFont]}
@@ -143,11 +136,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={personIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-person" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         style={[styles.input, styles.whiteFont]}
@@ -161,11 +150,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={emailIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-mail" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         style={[styles.input, styles.whiteFont]}
@@ -179,11 +164,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={lockIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-key" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         secureTextEntry={true}
@@ -198,11 +179,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={birthdayIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-star" color="#FFFFFF" size={24}/>
                                     </View>
                                     <Picker
                                         selectedValue={this.state.role}
@@ -217,14 +194,10 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={birthdayIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-water" color="#FFFFFF" size={24}/>
                                     </View>
                                     <Picker
-                                        selectedValue={this.state.role}
+                                        selectedValue={this.state.glucose_unit}
                                         style={[styles.input, styles.whiteFont]}
                                         onValueChange={(glucose_unit) => this.setState({glucose_unit})}>
                                         <Picker.Item label="mg/dL" value="mgdl" />
@@ -234,11 +207,7 @@ export default class RegisterScreen extends Component {
 
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
-                                        <Image
-                                            source={birthdayIcon}
-                                            style={styles.inputIcon}
-                                            resizeMode="contain"
-                                        />
+                                        <Icon name="ios-calendar" color="#FFFFFF" size={24}/>
                                     </View>
                                     <TextInput
                                         style={[styles.input, styles.whiteFont]}
