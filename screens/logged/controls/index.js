@@ -5,11 +5,11 @@ import {
     View
 } from 'react-native';
 
-export default class HomeScreen extends Component {
+export default class ControlsScreen extends Component {
     render() {
         return(
             <View style={{flex:1, paddingTop: 25, alignItems:'center', backgroundColor: '#E1E1E1'}}>
-                <Text>Homescreen</Text>
+                <Text>Controls</Text>
             </View>
         )
     }

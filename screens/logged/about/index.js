@@ -24,7 +24,7 @@ export default class AboutScreen extends Component {
     render() {
         const { rootNavigation } = this.props.screenProps;
         return(
-            <View>
+            <View style={{flex:1, paddingTop: 25, alignItems:'center', backgroundColor: '#E1E1E1'}}>
                 <Text>Sobre</Text>
                 <Button
                     onPress={() => this.logout(rootNavigation)}

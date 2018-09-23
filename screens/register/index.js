@@ -7,6 +7,7 @@ import {
     View,
     Image,
     ImageBackground,
+    Picker,
     ScrollView,
     TextInput,
     TouchableOpacity
@@ -26,6 +27,7 @@ export default class RegisterScreen extends Component {
         super(props);
         this.register = this.register.bind(this);
         this.GDPRAlert = this.GDPRAlert.bind(this);
+        this.state = {};
     }
 
     register() {
@@ -202,15 +204,17 @@ export default class RegisterScreen extends Component {
                                             resizeMode="contain"
                                         />
                                     </View>
-                                    <TextInput
+                                    <Picker
+                                        selectedValue={this.state.role}
                                         style={[styles.input, styles.whiteFont]}
-                                        placeholder="Rol (dm1/dm2/doctor/family)"
-                                        placeholderTextColor="#FFF"
-                                        underlineColorAndroid='transparent'
-                                        autoCapitalize='none'
-                                        onChangeText={(role) => this.setState({role})}
-                                    />
+                                        onValueChange={(role) => this.setState({role})}>
+                                        <Picker.Item label="Diabetes Mellitus 1" value="dm1" />
+                                        <Picker.Item label="Diabetes Mellitus 2" value="dm2" />
+                                        <Picker.Item label="Doctor" value="doctor" />
+                                        <Picker.Item label="Familiar" value="family" />
+                                    </Picker>
                                 </View>
+
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
                                         <Image
@@ -219,15 +223,15 @@ export default class RegisterScreen extends Component {
                                             resizeMode="contain"
                                         />
                                     </View>
-                                    <TextInput
+                                    <Picker
+                                        selectedValue={this.state.role}
                                         style={[styles.input, styles.whiteFont]}
-                                        placeholder="Unidades (mg/dl)"
-                                        placeholderTextColor="#FFF"
-                                        underlineColorAndroid='transparent'
-                                        autoCapitalize='none'
-                                        onChangeText={(glucose_unit) => this.setState({glucose_unit})}
-                                    />
+                                        onValueChange={(glucose_unit) => this.setState({glucose_unit})}>
+                                        <Picker.Item label="mg/dL" value="mgdl" />
+                                        <Picker.Item label="mmol/L" value="mmoll" />
+                                    </Picker>
                                 </View>
+
                                 <View style={styles.inputContainer}>
                                     <View style={styles.iconContainer}>
                                         <Image
@@ -317,7 +321,7 @@ let styles = StyleSheet.create({
         borderBottomColor: '#CCC',
         borderColor: 'transparent',
         flexDirection: 'row',
-        height: 75,
+        height: 50,
     },
     iconContainer: {
         paddingHorizontal: 15,
@@ -330,7 +334,6 @@ let styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontSize: 20,
     },
     button: {
         color: '#FFF',

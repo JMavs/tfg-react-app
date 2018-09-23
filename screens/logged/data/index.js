@@ -22,6 +22,7 @@ import '../../../globals';
 export default class DataScreen extends Component {
     render() {
         const { rootNavigation } = this.props.screenProps;
+        console.log(this.props.screenProps);
         const screenWidth = Dimensions.get('window').width;
         const data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -56,7 +57,7 @@ export default class DataScreen extends Component {
             <View style={{flex:1, paddingTop: 25, alignItems:'center', backgroundColor: '#E1E1E1'}}>
                 <ScrollView>
                     <Text>
-                        Bezier Line Chart
+                        Gráfica lineal de controles
                     </Text>
                     <LineChart
                         data={data}
@@ -70,7 +71,7 @@ export default class DataScreen extends Component {
                         }}
                     />
                     <Text>
-                        Progress Chart
+                        Controles correctos
                     </Text>
                     <ProgressChart
                         data={data2}
@@ -83,7 +84,7 @@ export default class DataScreen extends Component {
                         }}
                     />
                     <Text>
-                        Contribution Chart
+                        Controles diarios
                     </Text>
                     <ContributionGraph
                         values={commitsData}

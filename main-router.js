@@ -1,5 +1,6 @@
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 import HomeScreen from "./screens/logged/home";
+import ControlsScreen from "./screens/logged/controls";
 import DataScreen from "./screens/logged/data";
 import SettingsScreen from "./screens/logged/settings";
 import AboutScreen from "./screens/logged/about";
@@ -13,6 +14,15 @@ const MainRouter = createMaterialBottomTabNavigator({
             tabBarLabel: 'Inicio',
             tabBarIcon:({tintColor})=>(
                 <Icon name="ios-home" color={tintColor} size={24}/>
+            )
+        }
+    },
+    Controls: {
+        screen: ControlsScreen,
+        navigationOptions: {
+            tabBarLabel: 'Controles',
+            tabBarIcon:({tintColor})=>(
+                <Icon name="ios-water" color={tintColor} size={24}/>
             )
         }
     },
